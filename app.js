@@ -42,7 +42,7 @@ const promptUser = () => {
                 type: 'input',
                 name: 'about',
                 message: 'Provide some information about yourself:',
-                when: ({confirmAbout}) => {
+                when: ({ confirmAbout }) => {
                     if (confirmAbout) {
                         return true;
                     }
@@ -136,15 +136,22 @@ const promptProject = portfolioData => {
         });
 };
 
+// temp data for reruns only, will be removed
+// const mockData = {
+//     name: 'Don',
+//     github: 'dgstjohn',
+//     projects: []
+// }
+// const pageHTML = generatePage(mockData);
+
 promptUser()
     .then(promptProject)
     .then(portfolioData => {
-        console.log(portfolioData);
-        // const pageHTML = generatePage(name, github);
-        // fs.writeFile('./index.html', pageHTML, err => {
-        //     if (err) throw err;
-        //     console.log('Portfolio complete! Check out index.html to see the output!');
-        // });
+        const pageHTML = generatePage(portfolioData);
+        fs.writeFile('./index.html', pageHTML, err => {
+            if (err) throw new Error(err);
+            console.log('Portfolio complete! Check out index.html to see the output!');
+        });
     });
 
 
